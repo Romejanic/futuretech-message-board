@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FutureTech Message Board</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+	* {
+		box-sizing: border-box;
+	}
+	html {
+		width: 100%;
+	}
+	body {
+		background: #bdc3c7; /* fallback for old browsers */
+		background: -webkit-linear-gradient(to right, #bdc3c7, #2c3e50); /* Chrome 10-25, Safari 5.1-6 */
+		background: linear-gradient(to right, #bdc3c7, #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	}
+	form {
+		border-top: 1px solid gray;
+		border-bottom: 1px solid gray;
+		padding: 5px;
+	}
+	textarea {
+		width: 100%;
+		height: 100px;
+	}
+	#message-list {
+		display: block;
+		width: 100%;
+	}
+	.message {
+		display: block;
+		width: 100%;
+		background: gray;
+		border-radius: 4px;
+		padding: 5px;
+		margin-bottom: 5px;
+	}
+	.message span.message {
+		width: 100%;
+		font-size: 2em;
+	}
+	.message span.name {
+		font-size: 1.1em;
+		font-weight: bold;
+	}
+	</style>
+</head>
+<body>
+	<h1>Welcome to FutureTech message board!</h1>
+	<p>Be sure to drop a line and say hi! :)</p>
+	<br>
+	<form method="POST" action="/submit" id="message">
+		<textarea name="message" form="message"></textarea><br>
+		<input type="text" name="name" placeholder="Your name here..." />
+		<input type="submit" value="Post!" />
+	</form>
+	<br>
+	<div id="message-list">
+		<h1>Loading, please wait...</h1>
+	</div>
+	<script>
+	var messageList = document.getElementById("message-list");
+	var xhr = new XMLHttpRequest();
+	xhr.onreadystatechange = function() {
+		if(xhr.status == 200 && xhr.readyState == 4) {
+			constructMessageList(xhr.responseText);
+		}
+	};
+	xhr.open("GET", "/messages", true);
+	xhr.send();
+
+	function constructMessageList(json) {
+		var messages = JSON.parse(json);
+		messageList.innerHTML = "";
+		messages = messages.reverse();
+		messages.forEach((v) => {
+		    var div = document.createElement("div");
+		    div.className = "message";
+		    var lbl = document.createElement("span");
+		    lbl.className = "message";
+		    lbl.innerText = v.message;
+	            var nme = document.createElement("span");
+		    nme.className = "name";
+		    nme.innerText = "by " + v.name;
+
+		    div.appendChild(lbl);
+		    div.appendChild(nme);
+		    messageList.appendChild(div);
+		});
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+	"name": "futuretech-message-board",
+	"version": "1.0.0",
+	"description": "A quick message board in Express",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Romejanic/futuretech-message-board.git"
+	},
+	"dependencies": {
+		"body-parser": "^1.18.3",
+		"express": "^4.16.4"
+	}
+}
