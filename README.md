@@ -5,6 +5,7 @@ A quick message board i wrote up cause I was bored :p
 
 ```shell
 $ git clone https://github.com/Romejanic/futuretech-message-board.git
+$ cd futuretech-message-board
 $ npm install
-$ nano main.js
+$ node main.js
 ```
